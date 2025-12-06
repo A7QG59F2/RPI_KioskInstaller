@@ -185,7 +185,9 @@ check_internet () {
                     ;;
 
                 "Run raspi-config" )
-                    echo "Launching raspi-config. Navigate to 'System Options' -> 'Wireless LAN' or 'Network Options'."
+                    echo "On the next screen, navigate to 'System Options' -> 'Wireless LAN' or 'Network Options'."
+                    echo "After you have set up internet connection, use the arrow keys to click 'Finish'"
+                    read -n 1 -s -r -p "Press any key when you are ready..."
                     sudo raspi-config
                     ;;
 
