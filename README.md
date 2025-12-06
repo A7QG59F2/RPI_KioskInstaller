@@ -1,6 +1,15 @@
 # RPI_KioskInstaller
 Originally designed for a Raspberry Pi Home Assistant Kiosk, adapted for any site-based kiosk system.
 
+This script is a helpful setup wizard that utilizes CLI prompts to set up a touchscreen kiosk on a Raspberry Pi. 
+Some of the features it has are:
+- Easy to follow prompts that walk you through the process
+- Internet connection issue detection
+- Site validation via curl to make sure you are pointing to the right site
+- Option to set up a new user on the Pi
+- Text field enabled on-screen keyboard
+- LightDM for minimal background processes
+
 Instructions:
 
 1. Grab your SD card and pop it in your PC.
