@@ -59,10 +59,11 @@ setup () {
             else
                 echo "'$SITE_URL' does not exist or is unreachable..."
                 echo "Would you like to try again or continue anyways?"
-                select choice in "Try Again" "Continue Anyways" "Exit"; do
-                    case $choice in
-                        "Try Again" ) continue;;
-                        "Continue Anyways" ) break;;
+                select choice2 in "Try Again" "Continue Anyways" "Exit"
+                do
+                    case $choice2 in
+                        "Try Again" ) continue 2;;
+                        "Continue Anyways" ) break 2;;
                         "Exit" ) exit;;
                     esac
                 done
@@ -224,17 +225,31 @@ user_creation () {
         # Detect if user exists already
         if id -u "$DESIREDUSER" >/dev/null 2>&1; then
             echo
-            echo "User '$DESIREDUSER' already exists"
-            continue
+            echo "User '$DESIREDUSER' already exists."
+            echo "Please confirm the password for '$DESIREDUSER' to proceed:"
+            read -s DESIREDPASS
+            echo
+
+            # Attempt to authenticate the user
+            if echo "$DESIREDPASS" | su "$DESIREDUSER" -c "echo Attempting to print command as $DESIREDUSER" 2>/dev/null; then
+                echo "Password confirmed. Using existing user '$DESIREDUSER'."
+                break
+            else
+                echo "Authentication failed. The password you entered is incorrect."
+                continue
+            fi
         else
             echo "Please enter the user's new password:"
-            read DESIREDPASS
+            read -s DESIREDPASS
+            echo
+
+            # Create user and set password
+            sudo useradd -m $DESIREDUSER
+            echo "$DESIREDUSER:$DESIREDPASS" | sudo chpasswd
+            echo "New user '$DESIREDUSER' created."
             break
         fi
     done
-
-    # Create user
-    sudo useradd -m $DESIREDUSER && sudo passwd --stdin $DESIREDUSER <<< "$DESIREDPASS"
 }
 
 sleep_counter () {
