@@ -1,7 +1,7 @@
 clear
 echo "Welcome to the Pi Kiosk Installer!"
 echo
-echo "Make sure you have installed Raspberry Pi Bookworm (64-bit) lite!!!"
+echo "Make sure you have installed Raspberry Pi Trixie (64-bit) lite!!!"
 echo "Steps/inspiration taken from 'https://pimylifeup.com/raspberry-pi-home-assistant-kiosk/'"
 echo "Script made by SilentStrikerTH 12/05/25 (updated 12/06/25)"
 echo
