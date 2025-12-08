@@ -13,7 +13,7 @@ Some of the features it has are:
 Instructions:
 
 1. Grab your SD card and pop it in your PC.
-2. Use the Pi Imager Application (https://www.raspberrypi.com/software/) to install Raspberry Pi Bookworm (64-bit) lite on the SD card (might be listed under "other").
+2. Use the Pi Imager Application (https://www.raspberrypi.com/software/) to install Raspberry Pi Trixie (64-bit) lite on the SD card (might be listed under "other").
 3. Copy the "RPI_KioskInstaller.sh" script into "/home" for easy access.
 4. Boot up your Pi with the SD card installed.
 5. Once at the terminal, login and type "chmod +x /home/RPI_KioskInstaller.sh" to make it executable.
