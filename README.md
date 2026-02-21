@@ -1,7 +1,7 @@
 # RPI_KioskInstaller
 Originally designed for a Raspberry Pi Home Assistant Kiosk, adapted for any site-based kiosk system.
 
-This script is a helpful setup wizard that utilizes CLI prompts to set up a touchscreen kiosk on a Raspberry Pi. 
+This script is a helpful setup wizard that utilizes CLI prompts to set up a touchscreen kiosk on a ~~Raspberry Pi~~ Single Board Computer. 
 Some of the features it has are:
 - Easy to follow prompts that walk you through the process
 - Internet connection issue detection
@@ -13,9 +13,10 @@ Some of the features it has are:
 Instructions:
 
 1. Grab your SD card and pop it in your PC.
-2. Use the Pi Imager Application (https://www.raspberrypi.com/software/) to install Raspberry Pi Trixie (64-bit) lite on the SD card (might be listed under "other").
-3. Copy the "RPI_KioskInstaller.sh" script into "/home" for easy access.
-4. Boot up your Pi with the SD card installed.
+2. ~~Use the Pi Imager Application (https://www.raspberrypi.com/software/) to install Raspberry Pi Trixie (64-bit) lite on the SD card (might be listed under "other").~~ Follow the guide (https://dietpi.com/docs/install/) to install DietPi on the SD card.
+~~3. Copy the "RPI_KioskInstaller.sh" script into "/home" for easy access.~~
+~~4.~~ 3. Boot up your Pi with the SD card installed and follow the first-run propmts. Ensure internet access is available before proceeding.
+4. Download the "RPI_KioskInstaller.sh" script into your "/home" directory by typing "wget -P /home/ https://raw.githubusercontent.com/A7QG59F2/RPI_KioskInstaller/refs/heads/main/RPI_KioskInstaller.sh"
 5. Once at the terminal, login and type "chmod +x /home/RPI_KioskInstaller.sh" to make it executable.
 6. Next, run the script by typing "/home/RPI_KioskInstaller.sh"
 7. Follow the prompts within the script to input all necessary information.
