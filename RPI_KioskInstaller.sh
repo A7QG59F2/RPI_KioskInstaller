@@ -19,12 +19,12 @@ setup () {
         echo "What is the name of the service you are running?:"
         read SERVICE_NAME
         echo
-        echo "Would you like $SERVICE_NAME to use your current user (${USER}) or create a new user?"
-        select choice in "Current" "New"
+        echo "Would you like $SERVICE_NAME to use your current user (${USER}) or different user?"
+        select choice in "Current" "Different"
         do
             case $choice in
                 "Current" ) DESIREDUSER=$USER; break;;
-                "New" ) user_creation; break;;
+                "Different" ) user_creation; break;;
                 *) echo "'$REPLY' is not a valid option... Exiting."; exit;;
             esac
         done
@@ -72,7 +72,7 @@ setup () {
 
         echo
         echo
-        echo "Would you like to setup this device as a pi-kiosk with the following settings?:"
+        echo "Would you like to setup this device as a dietpi-kiosk with the following settings?:"
         echo
         echo "Startup user: $DESIREDUSER"
         echo "Website URL: $SITE_URL"
@@ -98,8 +98,10 @@ kiosk_installation () {
     sudo apt update
     sudo apt upgrade -y
 
-    echo "Installing necessary packages"
-    sudo apt install xserver-xorg lightdm onboard chromium sed unclutter libglib2.0-bin -y
+    echo "Installing required packages using dietpi optimizations"
+    sudo dietpi-software install 113
+    echo "Installing additional necessary packages"
+    sudo apt install lightdm onboard unclutter libglib2.0-bin mousetweaks gir1.2-atspi-2.0 onboard-data -y
 
     clear
 
