@@ -14,14 +14,14 @@ Instructions:
 
 1. Grab your SD card and pop it in your PC.
 2. ~~Use the Pi Imager Application (https://www.raspberrypi.com/software/) to install Raspberry Pi Trixie (64-bit) lite on the SD card (might be listed under "other").~~
-2. Follow the guide (https://dietpi.com/docs/install/) to install DietPi on the SD card.
-3. ~~Copy the "RPI_KioskInstaller.sh" script into "/home" for easy access.~~
-3. Boot up your Pi with the SD card installed and follow the first-run propmts. Ensure internet access is available before proceeding.
-4. Download the "RPI_KioskInstaller.sh" script into your "/home" directory by typing "wget -P /home/ https://raw.githubusercontent.com/A7QG59F2/RPI_KioskInstaller/refs/heads/main/RPI_KioskInstaller.sh"
-5. Once at the terminal, login and type "chmod +x /home/RPI_KioskInstaller.sh" to make it executable.
-6. Next, run the script by typing "/home/RPI_KioskInstaller.sh"
-7. Follow the prompts within the script to input all necessary information.
-8. Sit back and relax! It will automatically reboot and start up into the site that you specified.
+3. Follow the guide (https://dietpi.com/docs/install/) to install DietPi on the SD card.
+4. ~~Copy the "RPI_KioskInstaller.sh" script into "/home" for easy access.~~
+5. Boot up your Pi with the SD card installed and follow the first-run propmts. Ensure internet access is available before proceeding.
+6. Download the "RPI_KioskInstaller.sh" script into your "/home" directory by typing "wget -P /home/ https://raw.githubusercontent.com/A7QG59F2/RPI_KioskInstaller/refs/heads/main/RPI_KioskInstaller.sh"
+7. Once at the terminal, login and type "chmod +x /home/RPI_KioskInstaller.sh" to make it executable.
+8. Next, run the script by typing "/home/RPI_KioskInstaller.sh"
+9. Follow the prompts within the script to input all necessary information.55
+10. Sit back and relax! It will automatically reboot and start up into the site that you specified.
 
 Notes:
 The script writes two files, "/opt/kiosk/kiosk.sh" and "/lib/systemd/system/kiosk.service". If you ever need to make changes to the site address, startup user, or screen size/resolution, those files are what you will need to edit.
