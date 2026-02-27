@@ -101,19 +101,10 @@ kiosk_installation () {
     echo "Installing required packages using dietpi optimizations"
     sudo dietpi-software install 113
     echo "Installing additional necessary packages"
-    sudo apt install lightdm onboard unclutter libglib2.0-bin mousetweaks gir1.2-atspi-2.0 onboard-data -y
+    sudo apt install onboard unclutter libglib2.0-bin mousetweaks gir1.2-atspi-2.0 onboard-data at-spi2-core dbus-x11 upower acpid -y
 
     clear
-
-    echo "Setting LightDM desktop as default"
-    sudo systemctl --quiet set-default graphical.target
-
-    echo "Setting resolution"
-    sudo sed /etc/lightdm/lightdm.conf -i -e "s/^\(#\|\)display-setup-script=.*/display-setup-script=xrandr -s $RESOLUTION/"
-
-    echo "Setting no screen timeout"
-    sudo sed /etc/lightdm/lightdm.conf -i -e "s/^\(#\|\)xserver-command=.*/xserver-command=X -s 0 dpms/"
-
+    
     echo "Auto login as $DESIREDUSER"
     sudo sed /etc/lightdm/lightdm.conf -i -e "s/^\(#\|\)autologin-user=.*/autologin-user=$DESIREDUSER/"
 
@@ -123,11 +114,29 @@ kiosk_installation () {
     echo "Writing kiosk script"
     sudo mkdir -p /opt/kiosk/
     sudo tee -a /opt/kiosk/kiosk.sh > /dev/null <<EOT
+
 #!/bin/bash
+
+# Resolution to use for kiosk mode, should ideally match current system resolution
+RES_X=$(sed -n '/^[[:blank:]]*SOFTWARE_CHROMIUM_RES_X=/{s/^[^=]*=//p;q}' /boot/dietpi.txt)
+RES_Y=$(sed -n '/^[[:blank:]]*SOFTWARE_CHROMIUM_RES_Y=/{s/^[^=]*=//p;q}' /boot/dietpi.txt)
+
+# Command line switches: https://peter.sh/experiments/chromium-command-line-switches/
+# - Review and add custom flags in: /etc/chromium.d
+CHROMIUM_OPTS="--noerrdialogs --disable-infobars --kiosk --window-size=${RES_X:-1280},${RES_Y:-720} --window-position=0,0"
+
+# If you want tablet mode, uncomment the next line.
+#CHROMIUM_OPTS="$CHROMIUM_OPTS --force-tablet-mode --tablet-ui"
+
+# Home page
+URL=$(sed -n '/^[[:blank:]]*SOFTWARE_CHROMIUM_AUTOSTART_URL=/{s/^[^=]*=//p;q}' /boot/dietpi.txt)
+
 gsettings set org.gnome.desktop.interface toolkit-accessibility true
 /usr/bin/dbus-run-session /usr/bin/onboard &
 /usr/bin/unclutter -idle 0.5 -root &
-/usr/bin/chromium --app="$SITE_URL"  --noerrdialogs --disable-infobars --kiosk --window-position=0,0 --window-size=$WIDTH,$HEIGHT
+/usr/bin/chromium $CHROMIUM_OPTS "${URL:-https://dietpi.com/}"
+#/usr/bin/chromium $CHROMIUM_OPTS --app="${URL:-https://dietpi.com/}"
+
 EOT
 
     # Make the file executable
